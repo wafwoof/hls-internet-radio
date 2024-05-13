@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HLS Stream Test</title>
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+            height: 85dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        audio {
+            width: 100%;
+            max-width: 800px;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+    <!-- Or if you want the latest version from the main branch -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@canary"></script> -->
+    <p>HLS Streaming - WIP</p>
+    <p>OBS + RTMP/HLS Server + HLS.js, just needs a caching layer.</p>
+    <audio id="audio" controls autoplay></audio>
+    <script>
+        const audio = document.getElementById('audio');
+        if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource('https://f6ttm4v6-8888.usw2.devtunnels.ms/mystream/index.m3u8');
+            hls.attachMedia(audio);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                audio.play();
+            });
+        }
+        else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
+            audio.src = 'https://f6ttm4v6-8888.usw2.devtunnels.ms/mystream/index.m3u8';
+            audio.addEventListener('loadedmetadata', function() {
+                audio.play();
+            });
+        }
+    </script>
+</body>
+</html>

@@ -31,3 +31,4 @@ We should be doing more with the internet, we should be creative for the sake of
     - `sudo mediamtx`
 - Client
     - I'm just using the port forwarding feature in VSCode to forward port 8000 & 8888 (may differ for you).
+    - And to host the client I'm just using `npx ws`.
